@@ -382,6 +382,7 @@ void register_progress(uint32_t tag, const char* label)
 
 void finalize_progress(uint32_t tag)
 {
+	thread_once(&progress_info_once, _init_progress_info);
 	mutex_lock(&prog_mutex);
 	struct progress_info_entry* found = NULL;
 	FOREACH(struct progress_info_entry* e, &progress_info) {
